@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 
 project(isvm VERSION 1.0 LANGUAGES C CXX)
 
@@ -16,3 +16,37 @@ elseif(IOS)
     # IOS not supported
     message(FATAL_ERROR "Error: IOS platform not supported.")
 endif()
+
+# include("cmake/glfw.cmake")
+
+find_package(glfw3 REQUIRED)
+#find_package(glad REQUIRED)
+#find_package(glm REQUIRED)
+#find_package(Freetype REQUIRED)
+#find_package(imgui REQUIRED)
+find_package(OpenGL REQUIRED)
+#find_package(GLUT REQUIRED)
+
+add_library(glad STATIC "./libs/glad-master/build/src/glad.c")
+target_include_directories(glad PUBLIC "./libs/glad-master/build/include")
+
+add_library(imgui STATIC 
+  ../libs/imgui-master/imgui.cpp
+  ../libs/imgui-master/imgui_demo.cpp
+  ../libs/imgui-master/imgui_draw.cpp
+  ../libs/imgui-master/imgui_widgets.cpp
+  ../libs/imgui-master/examples/imgui_impl_glfw.cpp
+  ../libs/imgui-master/examples/imgui_impl_opengl2.cpp
+)
+
+target_include_directories(imgui PRIVATE "./libs/imgui-master/examples" "./libs/imgui-master")
+
+add_executable(main src/example.cpp)
+
+target_include_directories(main PRIVATE
+"./libs/imgui-master"
+"./libs/imgui-master/examples"
+"./libs/glfw-master/include"
+"./libs/glad-master/build/include/glad")
+
+target_link_libraries(main PRIVATE glfw glad imgui OpenGL::GL)
