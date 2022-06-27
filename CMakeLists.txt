@@ -21,26 +21,20 @@ find_package(glfw3 REQUIRED)
 # search for installed gl3w library files
 find_package(gl3w REQUIRED)
 
-add_library(glad STATIC "./libs/glad-master/build/src/glad.c")
-target_include_directories(glad PUBLIC "./libs/glad-master/build/include")
-
+# create static library for ImGui
 add_library(imgui STATIC 
   ../libs/imgui-master/imgui.cpp
   ../libs/imgui-master/imgui_demo.cpp
   ../libs/imgui-master/imgui_draw.cpp
   ../libs/imgui-master/imgui_widgets.cpp
   ../libs/imgui-master/examples/imgui_impl_glfw.cpp
-  ../libs/imgui-master/examples/imgui_impl_opengl2.cpp
+  ../libs/imgui-master/examples/imgui_impl_opengl3.cpp
 )
+# include public headers for static library
+target_include_directories(imgui PUBLIC "./libs/imgui-master")
+target_link_libraries(imgui PUBLIC gl3w glfw)
 
-target_include_directories(imgui PRIVATE "./libs/imgui-master/examples" "./libs/imgui-master")
-
-add_executable(main src/example.cpp)
-
-target_include_directories(main PRIVATE
-"./libs/imgui-master"
-"./libs/imgui-master/examples"
-"./libs/glfw-master/include"
-"./libs/glad-master/build/include/glad")
-
-target_link_libraries(main PRIVATE glfw glad imgui OpenGL::GL)
+# create executable target
+add_executable(main src/main.cpp)
+# link libraries to target. visibility of include directories are transistive and visible to executable
+target_link_libraries(main PRIVATE imgui)
