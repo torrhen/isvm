@@ -23,15 +23,15 @@ find_package(gl3w REQUIRED)
 
 # create static library for ImGui
 add_library(imgui STATIC 
-  ../libs/imgui-master/imgui.cpp
-  ../libs/imgui-master/imgui_demo.cpp
-  ../libs/imgui-master/imgui_draw.cpp
-  ../libs/imgui-master/imgui_widgets.cpp
-  ../libs/imgui-master/examples/imgui_impl_glfw.cpp
-  ../libs/imgui-master/examples/imgui_impl_opengl3.cpp
+  ../external/imgui-master/imgui.cpp
+  ../external/imgui-master/imgui_demo.cpp
+  ../external/imgui-master/imgui_draw.cpp
+  ../external/imgui-master/imgui_widgets.cpp
+  ../external/imgui-master/examples/imgui_impl_glfw.cpp
+  ../external/imgui-master/examples/imgui_impl_opengl3.cpp
 )
 # include public headers for static library
-target_include_directories(imgui PUBLIC "./libs/imgui-master")
+target_include_directories(imgui PUBLIC "./external/imgui-master")
 target_link_libraries(imgui PUBLIC gl3w glfw)
 
 # create executable target
