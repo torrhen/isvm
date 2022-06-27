@@ -40,3 +40,5 @@ add_executable(isvm src/main.cpp)
 target_link_libraries(isvm PRIVATE imgui)
 # allow all warnings as errors
 target_compile_options(isvm PRIVATE -Wall -Wextra -pedantic -Werror)
+# install the executable binary
+install(TARGETS isvm DESTINATION ${CMAKE_SOURCE_DIR}/bin)
