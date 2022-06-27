@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 3.20)
 
 project(isvm VERSION 1.0 LANGUAGES C CXX)
@@ -17,15 +16,10 @@ elseif(IOS)
     message(FATAL_ERROR "Error: IOS platform not supported.")
 endif()
 
-# include("cmake/glfw.cmake")
-
+# search for installed glfw library files
 find_package(glfw3 REQUIRED)
-#find_package(glad REQUIRED)
-#find_package(glm REQUIRED)
-#find_package(Freetype REQUIRED)
-#find_package(imgui REQUIRED)
-find_package(OpenGL REQUIRED)
-#find_package(GLUT REQUIRED)
+# search for installed gl3w library files
+find_package(gl3w REQUIRED)
 
 add_library(glad STATIC "./libs/glad-master/build/src/glad.c")
 target_include_directories(glad PUBLIC "./libs/glad-master/build/include")
