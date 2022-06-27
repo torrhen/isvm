@@ -38,3 +38,5 @@ target_link_libraries(imgui PUBLIC gl3w glfw)
 add_executable(main src/main.cpp)
 # link libraries to target. visibility of include directories are transistive and visible to executable
 target_link_libraries(main PRIVATE imgui)
+# allow all warnings as errors
+target_compile_options(main PRIVATE -Wall -Wextra -pedantic -Werror)
