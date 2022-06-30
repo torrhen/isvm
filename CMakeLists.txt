@@ -35,7 +35,7 @@ target_include_directories(imgui PUBLIC "./external/imgui-master")
 target_link_libraries(imgui PUBLIC gl3w glfw)
 
 # create executable target
-add_executable(isvm src/main.cpp)
+add_executable(isvm src/application.cpp)
 # link libraries to target. visibility of include directories are transistive and visible to executable
 target_link_libraries(isvm PRIVATE imgui)
 # allow all warnings as errors
