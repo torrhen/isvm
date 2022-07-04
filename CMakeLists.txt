@@ -34,10 +34,19 @@ add_library(imgui STATIC
 target_include_directories(imgui PUBLIC "./external/imgui-master")
 target_link_libraries(imgui PUBLIC gl3w glfw)
 
+add_library(libsvm STATIC
+  ../external/libsvm/svm.cpp
+  ../external/libsvm/svm-scale.c
+  ../external/libsvm/svm-predict.c
+  ../external/libsvm/svm-train.c
+)
+
+target_include_directories(libsvm PUBLIC "./external/libsvm")
+
 # create executable target
 add_executable(isvm src/main.cpp)
 # link libraries to target. visibility of include directories are transistive and visible to executable
-target_link_libraries(isvm PRIVATE imgui)
+target_link_libraries(isvm PRIVATE imgui libsvm)
 # allow all warnings as errors
 target_compile_options(isvm PRIVATE -Wall -Wextra -pedantic -Werror)
 # install the executable binary
